@@ -50,7 +50,7 @@ for line in open("ch4.txt", "r"):
 
     a1 = bytearray.fromhex(line)
 
-    for i in xrange(256):
+    for i in range(256):
         a2 = [i] * len(a1)
         plaintext = bytes(xor(a1,a2))
         temp_score = score(plaintext)
