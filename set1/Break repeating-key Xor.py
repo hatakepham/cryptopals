@@ -105,5 +105,5 @@ for KEYSIZE, _ in normalized_distances[:4]:
     plaintext = bytes(xor(b,key))
 
     print keys
-    print KEYSIZE
-    print plaintext
+    # print KEYSIZE
+    # print plaintext

@@ -9,8 +9,8 @@ lines = ["Burning 'em, if you ain't quick and nimble\n", "I go crazy when I hear
 text = "".join(lines)
 print text
 
-key = bytearray("ICE" * len(text))
-
+key = bytearray("ICE" * (len(text)/2))
+#  chua chinh xac do dai key
 plaintext = bytes(xor(bytearray(text),key))
 
 print plaintext.encode("hex")
