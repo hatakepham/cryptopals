@@ -50,7 +50,9 @@ def encryption_oracle(data):
         data + unknown_string,
         AES.block_size,
     )
+    # noi data vao dau string
     return aes_128_ecb_enc(plaintext, key)
+# ham encrypt 
 
 def get_block_size(encryption_oracle):
     ciphertext_length = len(encryption_oracle(bytearray()))
@@ -66,6 +68,8 @@ def get_block_size(encryption_oracle):
 
 def is_ecb_mode(buffer, block_size):
     return repeated_blocks(buffer, block_size) > 0
+# xac dinh ecb mode
+
 
 def get_unknown_string_size(encryption_oracle):
     ciphertext_length = len(encryption_oracle(bytearray()))
@@ -76,7 +80,7 @@ def get_unknown_string_size(encryption_oracle):
         if ciphertext_length != new_ciphertext_length:
             return (new_ciphertext_length - i - (new_ciphertext_length - ciphertext_length))
         i += 1
-#xac dinh do dai unknow string 
+#xac dinh do dai unknow string   
 
 def get_unknown_string(encryption_oracle):
     block_size = get_block_size(encryption_oracle)
@@ -85,18 +89,26 @@ def get_unknown_string(encryption_oracle):
         block_size,
     )
     assert is_ecb
+    # xac dinhj ecb
     unknown_string_size = get_unknown_string_size(encryption_oracle)
+    # do dai string
 
     unknown_string = bytearray()
     unknown_string_size_rounded = ((unknown_string_size / block_size) + 1) * block_size
+    print unknown_string_size_rounded
+
     for i in range(unknown_string_size_rounded - 1, 0, -1):
         d1 = bytearray("A" * i)
+        print d1
         c1 = encryption_oracle(d1)[:unknown_string_size_rounded]
+        # lay den string round
         for c in range(256):
             d2 = d1[:] + unknown_string + chr(c)
+            # + string da biet
             c2 = encryption_oracle(d2)[:unknown_string_size_rounded]
             if c1 == c2:
                 unknown_string += chr(c)
+                # print unknown_string
                 break
     return unknown_string
 
